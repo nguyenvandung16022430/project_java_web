@@ -40,9 +40,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<a href="products.html">Today's special Offers !</a>
 	</div>
 	<div class="w3l_search">
-		<form action="#" method="post">
-			<input type="text" name="Product" value="Search a product..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search a product...';}" required="">
-			<input type="submit" value=" ">
+		<form action="/" method="get"  th:action="@{/}" th:object="${productname}">
+			<input type="text" name="Product" th:field="*{name}" value="Search a product..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search a product...';}">
+			<input type="submit" value="">
 		</form>
 	</div>
 	<div class="product_list_header">
@@ -106,8 +106,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 			<div class="w3ls_logo_products_left1">
 				<ul class="phone_email">
-					<li><i class="fa fa-phone" aria-hidden="true"></i>(+0123) 234 567</li>
-					<li><i class="fa fa-envelope-o" aria-hidden="true"></i><a href="mailto:store@grocery.com">store@grocery.com</a></li>
+					<li><i class="fa fa-phone" aria-hidden="true"></i>(+08) 123 234 567</li>
+					<li><i class="fa fa-envelope-o" aria-hidden="true"></i><a href="mailto:store@grocery.com">BookStore@gmail.com</a></li>
 				</ul>
 			</div>
 			<div class="clearfix"> </div>
@@ -126,6 +126,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //products-breadcrumb -->
 <!-- banner -->
 	<div class="banner">
+
 		<div class="w3l_banner_nav_left">
 			<nav class="navbar nav_bottom">
 			 <!-- Brand and toggle get grouped for better mobile display -->
@@ -154,57 +155,61 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="w3l_banner_nav_right_banner1">
 				<h3>Best Deals For New Products<span class="blink_me"></span></h3>
 			</div>
-			<div class="w3ls_w3l_banner_nav_right_grid w3ls_w3l_banner_nav_right_grid_sub">
-				<h3>Household Products</h3>
-				<div class="w3ls_w3l_banner_nav_right_grid1">
-					<h6>cleaning</h6>
-					<div class="col-md-3 w3ls_w3l_banner_left" th:each="product : ${vm.getProductVMList()}">
-						<div class="hover14 column">
-						<div class="agile_top_brand_left_grid w3l_agile_top_brand_left_grid">
-							<div class="agile_top_brand_left_grid_pos">
-								<img src="images/offer.png" alt=" " class="img-responsive" />
-							</div>
-							<div class="agile_top_brand_left_grid1">
-								<figure>
-									<div class="snipcart-item block">
-										<div class="snipcart-thumb">
-											<a href="single.html"><img th:src="${product.getMainImage()}" alt=" " class="img-responsive" /></a>
-											<p  th:text="${product.getName()}"></p>
-											<h4  th:text="${product.getPrice() + ' $'}">$8.00 <span></span></h4>
-										</div>
-										<div class="snipcart-details">
-											<form action="#" method="post">
-												<fieldset>
-													<input type="hidden" name="cmd" value="_cart" />
-													<input type="hidden" name="add" value="1" />
-													<input type="hidden" name="business" value=" " />
-													<input type="hidden" name="item_name" value="dishwash gel, lemon" />
-													<input type="hidden" name="amount" value="8.00" />
-													<input type="hidden" name="discount_amount" value="1.00" />
-													<input type="hidden" name="currency_code" value="USD" />
-													<input type="hidden" name="return" value=" " />
-													<input type="hidden" name="cancel_return" value=" " />
-													<input type="submit" name="submit" value="Add to cart" class="button" />
-												</fieldset>
-											</form>
-										</div>
-									</div>
-								</figure>
-							</div>
-						</div>
-						</div>
-					</div>
-				</div>
-
-			</div>
-
 		</div>
 		<div class="clearfix"></div>
 	</div>
+<div class="container">
+	<div class="w3ls_w3l_banner_nav_right_grid w3ls_w3l_banner_nav_right_grid_sub">
+		<h3>Household Products</h3>
+		<div class="w3ls_w3l_banner_nav_right_grid1">
+			<h6>cleaning</h6>
+			<div class="col-md-3 w3ls_w3l_banner_left" th:each="product : ${vm.getProductVMList()}">
+				<div class="hover14 column">
+					<div class="agile_top_brand_left_grid w3l_agile_top_brand_left_grid">
+						<div class="agile_top_brand_left_grid_pos">
+							<img src="images/offer.png" alt=" " class="img-responsive" />
+						</div>
+						<div class="agile_top_brand_left_grid1">
+							<figure>
+								<div class="snipcart-item block">
+									<div class="snipcart-thumb">
+										<a href="single.html"><img th:src="${product.getMainImage()}" alt=" " class="img-responsive" /></a>
+										<p  th:text="${product.getName()}"></p>
+										<h4  th:text="${product.getPrice() + ' $'}">$8.00 <span></span></h4>
+									</div>
+									<div class="snipcart-details">
+										<form action="#" method="post">
+											<fieldset>
+												<input type="hidden" name="cmd" value="_cart" />
+												<input type="hidden" name="add" value="1" />
+												<input type="hidden" name="business" value=" " />
+												<input type="hidden" name="item_name" value="dishwash gel, lemon" />
+												<input type="hidden" name="amount" value="8.00" />
+												<input type="hidden" name="discount_amount" value="1.00" />
+												<input type="hidden" name="currency_code" value="USD" />
+												<input type="hidden" name="return" value=" " />
+												<input type="hidden" name="cancel_return" value=" " />
+												<input type="submit" name="submit" value="Add to cart" class="button" />
+											</fieldset>
+										</form>
+									</div>
+								</div>
+							</figure>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
 <!-- //banner -->
 <!-- newsletter -->
 	<div class="newsletter"style="position: relative;background-color:#FFFFFF" >
-		<nav th:if="${vm.getProductVMList().size()>0}" style="position: absolute;right: 0px;top: 0px">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4"></div>
+		<div th:if="${vm.getProductVMList().size()>0}" class="col-md-8">
 			<ul class="pagination" >
 				<th:block th:each="i: ${#numbers.sequence(0, page.totalPages - 1)}">
 					<li class="page-item active" th:if="${page.number == i}" aria-current="page">
@@ -213,10 +218,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<li class="page-item"  th:unless="${page.number == i}"><a class="page-link" th:text="${i+1}"
 																			  th:href="${'?'+(#httpServletRequest.getParameter('categoryId')==null?'':('&categoryId='+#httpServletRequest.getParameter('categoryId')))
                                                                                        +('&page='+i)
-                                                                                       +(#httpServletRequest.getParameter('size')==null?'':('&size='+#httpServletRequest.getParameter('size')))}"></a></li>
+                                                                                       +(#httpServletRequest.getParameter('size')==null?'':('&size='+#httpServletRequest.getParameter('size')))
+                                                                                       +(#httpServletRequest.getParameter('name')==null?'':('&name='+#httpServletRequest.getParameter('name')))}"></a></li>
 				</th:block>
 			</ul>
-		</nav>
+		</div>
+		</div>
+		</div>
 	</div>
 <!-- //newsletter -->
 <!-- footer -->

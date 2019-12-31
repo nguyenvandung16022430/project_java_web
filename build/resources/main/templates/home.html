@@ -40,9 +40,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<a href="products.html">Today's special Offers !</a>
 	</div>
 	<div class="w3l_search">
-		<form action="#" method="post">
-			<input type="text" name="Product" value="Search a product..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search a product...';}" required="">
-			<input type="submit" value=" ">
+		<form action="/" method="get"  th:action="@{/}" th:object="${productname}">
+			<input type="text" name="Product" th:field="*{name}" value="Search a product..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search a product...';}">
+			<input type="submit" value="">
 		</form>
 	</div>
 	<div class="product_list_header">
@@ -106,8 +106,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 			<div class="w3ls_logo_products_left1">
 				<ul class="phone_email">
-					<li><i class="fa fa-phone" aria-hidden="true"></i>(+0123) 234 567</li>
-					<li><i class="fa fa-envelope-o" aria-hidden="true"></i><a href="mailto:store@grocery.com">store@grocery.com</a></li>
+					<li><i class="fa fa-phone" aria-hidden="true"></i>(+08) 123 234 567</li>
+					<li><i class="fa fa-envelope-o" aria-hidden="true"></i><a href="mailto:store@grocery.com">BookStore@gmail.com</a></li>
 				</ul>
 			</div>
 			<div class="clearfix"> </div>
@@ -213,7 +213,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<li class="page-item"  th:unless="${page.number == i}"><a class="page-link" th:text="${i+1}"
 																			  th:href="${'?'+(#httpServletRequest.getParameter('categoryId')==null?'':('&categoryId='+#httpServletRequest.getParameter('categoryId')))
                                                                                        +('&page='+i)
-                                                                                       +(#httpServletRequest.getParameter('size')==null?'':('&size='+#httpServletRequest.getParameter('size')))}"></a></li>
+                                                                                       +(#httpServletRequest.getParameter('size')==null?'':('&size='+#httpServletRequest.getParameter('size')))
+                                                                                       +(#httpServletRequest.getParameter('name')==null?'':('&name='+#httpServletRequest.getParameter('name')))}"></a></li>
 				</th:block>
 			</ul>
 		</nav>

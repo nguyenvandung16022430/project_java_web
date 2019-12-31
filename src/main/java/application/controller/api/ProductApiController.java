@@ -33,7 +33,7 @@ public class ProductApiController {
             "https://salt.tikicdn.com/cache/w1200/ts/product/fd/61/1d/a19424cfe9d113c32732d93cf2d5f59a.jpg",
     };
     @GetMapping("/fake")
-    public BaseApiResult fakeCategpry(){
+    public BaseApiResult fakeProduct(){
         BaseApiResult result = new BaseApiResult();
 
         try {
@@ -62,5 +62,7 @@ public class ProductApiController {
         }
         return result;
     }
+
+
 
 }

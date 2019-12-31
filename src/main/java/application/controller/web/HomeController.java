@@ -32,6 +32,7 @@ public class HomeController {
     private ProductService productService;
     @GetMapping(value = "")
     public String home(Model model,
+                       @Valid @ModelAttribute("productname") ProductVM productName,
                        @RequestParam(name = "categoryId",required = false) Integer categoryId,
                        @RequestParam(name = "page",required = false,defaultValue = "0") Integer page,
                        @RequestParam(name = "size",required = false,defaultValue = "12")Integer size,
@@ -53,7 +54,11 @@ public class HomeController {
         Page<Product> productPage = null;
         if(categoryId !=null){
                 productPage = productService.getListProductbyCategoryOrProductNameContaining(pageable,categoryId);
-        }else{
+        } else if (productName.getName() != null && !productName.getName().isEmpty()) {
+            String nameProduct= productName.getName().trim();
+             productPage = productService.getListProductbyProductNameContaining(pageable,nameProduct);
+             }
+        else{
             productPage = productService.getListProductbyCategoryOrProductNameContaining(pageable,null);
         }
         List<ProductVM> productVMList = new ArrayList<>();
@@ -66,6 +71,7 @@ public class HomeController {
             productVM.setCreatedDate(product.getPublishedDate());
             productVM.setPrice(product.getPrice());
             productVMList.add(productVM);
+
         }
         vm.setCategoryVMList(categoryVMList);
         vm.setProductVMList(productVMList);
