@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class HomeController {
+public class HomeController extends BaseController {
     @Autowired
     private CategoryService categoryService;
     @Autowired
@@ -40,16 +40,6 @@ public class HomeController {
                        HttpServletResponse response,
                        final Principal principal){
         HomeLandingVM vm = new HomeLandingVM();
-        List<Category> categoryList = categoryService.getListAllCategories();
-        List<CategoryVM> categoryVMList = new ArrayList<>();
-        for(Category category : categoryList){
-            CategoryVM categoryVM = new CategoryVM();
-            categoryVM.setId(category.getId());
-            categoryVM.setName(category.getName());
-            categoryVM.setShortDesc(category.getShortDesc());
-            categoryVM.setCteatedDate(category.getCreatedDate());
-            categoryVMList.add(categoryVM);
-        }
         Pageable pageable =  new PageRequest(page,size);
         Page<Product> productPage = null;
         if(categoryId !=null){
@@ -73,7 +63,7 @@ public class HomeController {
             productVMList.add(productVM);
 
         }
-        vm.setCategoryVMList(categoryVMList);
+        vm.setLayoutHeaderVM(this.getLayoutHeaderVM());
         vm.setProductVMList(productVMList);
         model.addAttribute("vm",vm);
         model.addAttribute("page",productPage);

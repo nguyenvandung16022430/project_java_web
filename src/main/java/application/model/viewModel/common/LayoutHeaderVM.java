@@ -1,26 +1,17 @@
 package application.model.viewModel.common;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class LayoutHeaderVM {
 
-    private String companyName;
-    private ArrayList<HeaderMenuVM> headerMenuVMArrayList;
+   private List<CategoryVM> categoryVMList = new ArrayList<>();
 
-    public ArrayList<HeaderMenuVM> getHeaderMenuVMArrayList() {
-        return headerMenuVMArrayList;
+    public List<CategoryVM> getCategoryVMList() {
+        return categoryVMList;
     }
 
-    public void setHeaderMenuVMArrayList(ArrayList<HeaderMenuVM> headerMenuVMArrayList) {
-        this.headerMenuVMArrayList = headerMenuVMArrayList;
+    public void setCategoryVMList(List<CategoryVM> categoryVMList) {
+        this.categoryVMList = categoryVMList;
     }
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
 }
