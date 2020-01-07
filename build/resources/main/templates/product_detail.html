@@ -591,7 +591,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="col-md-3 w3_footer_grid agile_footer_grids_w3_footer">
                 <div class="w3_footer_grid_bottom">
                     <h4>100% secure payments</h4>
-                    <img src="images/card.png" alt=" " class="img-responsive" />
+                    <img th:src="@{/images/card.png}" alt=" " class="img-responsive" />
                 </div>
             </div>
             <div class="col-md-3 w3_footer_grid agile_footer_grids_w3_footer">
@@ -615,7 +615,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </div>
 <!-- //footer -->
 <!-- Bootstrap Core JavaScript -->
-<script src="js/bootstrap.min.js"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
 <script>
     $(document).ready(function(){
         $(".dropdown").hover(
@@ -647,7 +647,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     });
 </script>
 <!-- //here ends scrolling icon -->
-<script src="js/minicart.js"></script>
+<script th:src="@{/js/minicart.js}"></script>
 <script>
     paypal.minicart.render();
 

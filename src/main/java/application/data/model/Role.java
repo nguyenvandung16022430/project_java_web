@@ -12,7 +12,7 @@ public class Role {
     @Id
     private int id;
 
-    @Column(name = "name")
+    @Column(name = "role_name")
     private String name;
 
     @ManyToMany(fetch = FetchType.LAZY,

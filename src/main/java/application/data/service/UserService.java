@@ -1,5 +1,7 @@
 package application.data.service;
 
+import application.constant.RoleIdConstant;
+import application.constant.StatusRegisterUserEnum;
 import application.data.model.Role;
 import application.data.model.User;
 import application.data.model.UserRole;
@@ -9,9 +11,11 @@ import application.data.repository.UserRoleRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -28,6 +32,9 @@ public class UserService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public void addNewUser(User user){
         userRepository.save(user);
@@ -60,6 +67,39 @@ public class UserService {
             logger.error(e.getMessage());
         }
         return false;
+    }
+
+    public StatusRegisterUserEnum registerNewUser(User user) {
+        logger.info("Start registerNewUser");
+        try {
+            // check existed user
+            if(findUserByUsername(user.getUserName()) != null) {
+                return StatusRegisterUserEnum.Existed_Username;
+            }
+
+            if(findUserByEmail(user.getEmail()) != null) {
+                return StatusRegisterUserEnum.Existed_Email;
+            }
+
+            // hash pass
+            user.setPasswordHash(passwordEncoder.encode(user.getPassword()));
+            user.setCreadedDate(new Date());
+
+            // save user
+            userRepository.save(user);
+
+            // insert new role
+            UserRole userRole = new UserRole();
+            userRole.setRoleId(RoleIdConstant.Role_User);
+            userRole.setUserId(user.getId());
+
+            userRoleRepository.save(userRole);
+
+            return StatusRegisterUserEnum.Success;
+        } catch (Exception ex) {
+            logger.info("Exception on registerNewUser: " + ex.getMessage());
+            return StatusRegisterUserEnum.Error_OnSystem;
+        }
     }
 
     public List<Role> getListRole() {
