@@ -38,4 +38,21 @@ public class CartService {
         }
         return false;
     }
+    public Cart findByUserName(String userName) {
+        try {
+            return cartRepository.findByUserName(userName);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+        }
+        return null;
+    }
+
+    public Cart findFirstCartByGuid(String guid) {
+        try {
+            return cartRepository.findFirstCartByGuid(guid);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+        }
+        return null;
+    }
 }

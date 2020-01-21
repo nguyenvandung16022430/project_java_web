@@ -15,7 +15,7 @@ public class CartProduct {
     private Cart cart;
 
     @Column(name = "cart_id", insertable = false, updatable = false)
-    private int cartId;
+    private Integer cartId;
 
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
