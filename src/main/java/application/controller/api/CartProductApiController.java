@@ -57,18 +57,30 @@ public class CartProductApiController extends BaseController {
                     }
                 }
             }
-             if(dto.getAmount() > 0 && dto.getProductId() > 0){
+            if(dto.getGuid() != null){
+                if(principal !=null){
+                    String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+                    System.out.println(userName);
+                    if(cartService.findByUserName(userName) == null) {
+                     this.checkCookie(response,request,principal);
+                     dto.setGuid(cartService.findByUserName(userName).getGuid());
+                 } else {
+                        if(cartService.findByUserName(userName).getGuid() != dto.getGuid()){
+                            this.checkCookie(response,request,principal);
+                            dto.setGuid(cartService.findByUserName(userName).getGuid());
+                        }
+                    }
+                }
+            }
+            if(dto.getAmount() > 0 && dto.getProductId() > 0){
                  Cart cartEntity = cartService.findFirstCartByGuid(dto.getGuid());
                  if(cartEntity == null){
-                     System.out.println("chạy tiếp vao đay rồi 1");
+                     System.out.println("chạy tiếp vao đây rồi 1");
                      System.out.println(dto.getGuid());
                      Cart cart2 = new Cart();
                      System.out.println("test");
                      cart2.setGuid(dto.getGuid());
                      System.out.println("test tiep");
-                     if(principal != null) {
-                         cart2.setUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-                     }
                         cartService.addNewCart(cart2);
                          Product productEntity = productService.findOne(dto.getProductId());
                          if(productEntity != null)  {

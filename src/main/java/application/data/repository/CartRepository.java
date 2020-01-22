@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface CartRepository extends JpaRepository<Cart,Integer> {
     @Query(value = "SELECT * from dbo_cart c " +
-            "WHERE :userName IS NULL OR c.userName = :userName " +
+            "WHERE :userName IS NULL OR c.user_name = :userName " +
             "ORDER BY c.cart_id DESC LIMIT 1",nativeQuery = true)
     Cart findByUserName(@Param("userName") String userName);
 

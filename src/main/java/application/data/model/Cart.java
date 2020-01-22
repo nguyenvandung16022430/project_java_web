@@ -13,7 +13,7 @@ public class Cart {
    @Column(name = "guid")
    private String guid;
     @Column(name = "user_name")
-   private String username;
+   private String userName;
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "cart")
    private List<CartProduct> listCartProduct = new ArrayList<>();
@@ -35,11 +35,11 @@ public class Cart {
    }
 
    public String getUsername() {
-      return username;
+      return userName;
    }
 
    public void setUsername(String username) {
-      this.username = username;
+      this.userName = username;
    }
 
    public List<CartProduct> getListCartProduct() {
