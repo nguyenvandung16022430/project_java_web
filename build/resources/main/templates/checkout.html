@@ -1,0 +1,112 @@
+
+<!--
+author: W3layouts
+author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Checkout</title>
+<!-- for-mobile-apps -->
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<link th:href="@{/css/bootstrap.css}" rel="stylesheet" type="text/css" media="all" />
+	<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" media="all" />
+	<!-- font-awesome icons -->
+	<link th:href="@{/css/font-awesome.css}" rel="stylesheet" type="text/css" media="all" />
+	<!-- //font-awesome icons -->
+	<!-- js -->
+	<script th:src="@{/js/jquery-1.11.1.min.js}"></script>
+	<!-- //js -->
+	<!-- start-smoth-scrolling -->
+	<script type="text/javascript" th:src="@{js/move-top.js}"></script>
+	<script type="text/javascript" th:src="@{js/easing.js}"></script>
+
+</head>
+	
+<body>
+<!-- header -->
+
+<!-- //header -->
+<!-- products-breadcrumb -->
+<div th:replace="fragments/cartheader :: header_cart (vm=${vm.getCartHeaderVM()})"></div>
+<!-- //products-breadcrumb -->
+<!-- banner -->
+	<div class="banner">
+
+<!-- about -->
+		<div class="privacy about">
+			<h3>Chec<span>kout</span></h3>
+
+	      <div class="checkout-right">
+			  <h4>Your shopping cart contains: <a></a><span>Products</span></h4>
+			</div>
+			<div class="checkout-left">
+				<div class="col-md-4 checkout-left-basket">
+					<h4>Continue to basket</h4>
+					<ul>
+						<li>Product1 <i>-</i> <span>$15.00 </span></li>
+						<li>Product2 <i>-</i> <span>$25.00 </span></li>
+						<li>Product3 <i>-</i> <span>$29.00 </span></li>
+						<li>Total Service Charges <i>-</i> <span>$15.00</span></li>
+						<li>Total <i>-</i> <span>$84.00</span></li>
+					</ul>
+				</div>
+				<div class="col-md-8 address_form_agile">
+					  <h4>Add a new Details</h4>
+				<form th:action="@{/order/checkout}" method="post" class="creditly-card-form agileinfo_form" th:object="${order}">
+									<section class="creditly-wrapper wthree, w3_agileits_wrapper">
+										<div class="information-wrapper">
+											<div class="first-row form-group">
+												<div class="controls">
+													<label class="control-label">Full name: </label>
+													<input class="billing-address-name form-control" type="text" name="name" placeholder="Full Name"  id="input-name" th:field="*{customerName}">
+												</div>
+												<div class="w3_agileits_card_number_grids">
+													<div class="w3_agileits_card_number_grid_left">
+														<div class="controls">
+															<label class="control-label">Mobile number:</label>
+														    <input class="form-control" type="text" placeholder="Mobile Number" id="input-phone-number" th:field="*{phoneNumber}">
+														</div>
+													</div>
+													<div class="w3_agileits_card_number_grid_right">
+														<div class="controls">
+															<label class="control-label">Email: </label>
+														 <input class="form-control" type="text" placeholder="Your Email"  id="input-email" th:field="*{email}">
+														</div>
+													</div>
+													<div class="clear"> </div>
+												</div>
+												<div class="controls">
+													<label class="control-label">Address: </label>
+												 <input class="form-control" type="text" placeholder="Address"  id="input-address" th:field="*{address}">
+												</div>
+
+											</div>
+											<button class="submit check_out">Order</button>
+										</div>
+									</section>
+								</form>
+					</div>
+
+				<div class="clearfix"> </div>
+
+			</div>
+
+		</div>
+<!-- //about -->
+		</div>
+		<div class="clearfix"></div>
+	</div>
+<!-- //banner -->
+
+
+<!-- newsletter -->
+<!-- //footer -->
+<div th:replace="fragments/footer :: footer_info"></div>
+
+</body>
+</html>

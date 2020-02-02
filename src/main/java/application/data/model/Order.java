@@ -14,14 +14,14 @@ public class Order {
     private int id;
 
     @Column(name = "discount_id", insertable = false, updatable = false)
-    private int discountId;
+    private Integer discountId;
 
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "discount_id")
     private Discount discount;
 
     @Column(name = "status_id", insertable = false, updatable = false)
-    private int statusId;
+    private Integer statusId;
 
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "status_id")
@@ -30,7 +30,7 @@ public class Order {
     @Column(name = "guid")
     private String guid;
 
-    @Column(name = "username")
+    @Column(name = "user_name")
     private String userName;
 
     @Column(name = "customer_name")

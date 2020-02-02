@@ -1,21 +1,22 @@
 package application.model.viewModel.order;
 
+import application.model.viewModel.common.CartHeaderVM;
 import application.model.viewModel.common.LayoutHeaderVM;
 
 import java.util.List;
 
 public class OrderHistory {
 
-    private LayoutHeaderVM layoutHeaderVM;
+
     private List<OrderVM> orderVMS;
+    private CartHeaderVM cartHeaderVM;
 
-
-    public LayoutHeaderVM getLayoutHeaderVM() {
-        return layoutHeaderVM;
+    public CartHeaderVM getCartHeaderVM() {
+        return cartHeaderVM;
     }
 
-    public void setLayoutHeaderVM(LayoutHeaderVM layoutHeaderVM) {
-        this.layoutHeaderVM = layoutHeaderVM;
+    public void setCartHeaderVM(CartHeaderVM cartHeaderVM) {
+        this.cartHeaderVM = cartHeaderVM;
     }
 
     public List<OrderVM> getOrderVMS() {

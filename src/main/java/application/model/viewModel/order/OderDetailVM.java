@@ -1,23 +1,25 @@
 package application.model.viewModel.order;
 
+import application.model.viewModel.common.CartHeaderVM;
 import application.model.viewModel.common.LayoutHeaderVM;
 
 import java.util.List;
 
 public class OderDetailVM {
 
-    private LayoutHeaderVM layoutHeaderVM;
+
     private List<OrderProductVM> orderProductVMS;
     private String totalPrice;
     private int totalProduct;
 
+    private CartHeaderVM cartHeaderVM;
 
-    public LayoutHeaderVM getLayoutHeaderVM() {
-        return layoutHeaderVM;
+    public CartHeaderVM getCartHeaderVM() {
+        return cartHeaderVM;
     }
 
-    public void setLayoutHeaderVM(LayoutHeaderVM layoutHeaderVM) {
-        this.layoutHeaderVM = layoutHeaderVM;
+    public void setCartHeaderVM(CartHeaderVM cartHeaderVM) {
+        this.cartHeaderVM = cartHeaderVM;
     }
 
     public List<OrderProductVM> getOrderProductVMS() {

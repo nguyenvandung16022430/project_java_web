@@ -13,10 +13,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
@@ -126,5 +123,45 @@ public class CartProductApiController extends BaseController {
         result.setMessage("Fail!");
         result.setSuccess(false);
         return result;
+    }
+
+    @PostMapping("/update")
+    public BaseApiResult upadateCartProduct(@RequestBody CartProductDTO dto){
+        BaseApiResult result = new BaseApiResult();
+
+        try{
+            if(dto.getId() > 0 && dto.getAmount() > 0){
+                CartProduct cartProductEntity = cartProductService.findOne(dto.getId());
+
+                if(cartProductEntity != null ){
+                    cartProductEntity.setAmount(dto.getAmount());
+                    cartProductService.updateCartProduct(cartProductEntity);
+                    result.setMessage("Update Cart Product success");
+                    result.setSuccess(true);
+                    return result;
+                }
+            }
+        } catch (Exception e){
+            logger.error(e.getMessage());
+        }
+        result.setSuccess(false);
+        result.setMessage("Fail!");
+        return result;
+    }
+    @GetMapping("/delete/{cartProductId}")
+    public BaseApiResult deleteCartProduct(@PathVariable int cartProductId) {
+        BaseApiResult result = new BaseApiResult();
+        try{
+            if(cartProductService.delateCartpoduct(cartProductId) == true){
+                result.setMessage("Delete Success");
+                result.setSuccess(true);
+                return result;
+            }
+        } catch (Exception e){
+            logger.error(e.getMessage());
+        }
+        result.setMessage("fail!");
+        result.setSuccess(false);
+        return  result;
     }
 }

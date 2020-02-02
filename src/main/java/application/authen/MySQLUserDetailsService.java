@@ -1,6 +1,6 @@
 package application.authen;
 
-import application.data.model.Role;
+import    application.data.model.Role;
 import application.data.model.User;
 import application.data.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

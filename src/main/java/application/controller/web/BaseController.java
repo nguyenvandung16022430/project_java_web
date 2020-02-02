@@ -4,6 +4,7 @@ import application.data.model.Cart;
 import application.data.model.Category;
 import application.data.service.CartService;
 import application.data.service.CategoryService;
+import application.model.viewModel.common.CartHeaderVM;
 import application.model.viewModel.common.CategoryVM;
 import application.model.viewModel.common.LayoutHeaderVM;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,10 @@ public class BaseController {
     public LayoutHeaderVM getLayoutHeaderVM(){
         LayoutHeaderVM vm = new LayoutHeaderVM();
         vm.setCategoryVMList(this.getCategoryVMList());
+        return vm;
+    }
+    public CartHeaderVM getCartHeaderVM (){
+        CartHeaderVM vm = new CartHeaderVM();
         return vm;
     }
 

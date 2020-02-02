@@ -43,4 +43,7 @@ public class OrderService {
         }
         return false;
     }
+    public List<Order> findOrderByGuidOrUserName(String guid, String userName) {
+        return orderRepository.findOrderByGuidOrUserName(guid,userName);
+    }
 }

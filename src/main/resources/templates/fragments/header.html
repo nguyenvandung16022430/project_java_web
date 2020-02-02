@@ -17,10 +17,8 @@
             </form>
         </div>
         <div class="product_list_header">
-            <form action="#" method="post" class="last">
+            <form th:action="@{/cart}" method="get" class="last">
                 <fieldset>
-                    <input type="hidden" name="cmd" value="_cart" />
-                    <input type="hidden" name="display" value="1" />
                     <input type="submit" name="submit" value="View your cart" class="button" />
                 </fieldset>
             </form>
@@ -34,12 +32,14 @@
                             <ul class="dropdown-menu drp-mnu">
                                 <li><a th:href="@{/user-detail}" th:text="${#httpServletRequest.remoteUser}"></a></li>
                                 <li><a  th:href="@{/logout}">Logout</a></li>
+                                <li><a th:href="@{/order/history}">Order-History</a></li>
                             </ul>
                         </div>
                         <div sec:authorize="isAnonymous()" class="w3ls_vegetables">
                             <ul class="dropdown-menu drp-mnu">
                                 <li><a th:href="@{/login}">Login</a></li>
                                 <li><a  th:href="@{/register}">Sign Up</a></li>
+                                <li><a th:href="@{/order/history}">Order-History</a></li>
                             </ul>
                         </div>
                     </div>

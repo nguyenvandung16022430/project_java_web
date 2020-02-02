@@ -1,5 +1,6 @@
 package application.model.viewModel.cart;
 
+import application.model.viewModel.common.CartHeaderVM;
 import application.model.viewModel.common.LayoutHeaderVM;
 
 import java.util.List;
@@ -8,7 +9,7 @@ public class CartVM {
 
     private int productAmount;
     private List<CartProductVM> cartProductVMS;
-    private LayoutHeaderVM layoutHeaderVM;
+    private CartHeaderVM cartHeaderVM;
     private String totalPrice;
 
 
@@ -28,12 +29,12 @@ public class CartVM {
         this.cartProductVMS = cartProductVMS;
     }
 
-    public LayoutHeaderVM getLayoutHeaderVM() {
-        return layoutHeaderVM;
+    public CartHeaderVM getCartHeaderVM() {
+        return cartHeaderVM;
     }
 
-    public void setLayoutHeaderVM(LayoutHeaderVM layoutHeaderVM) {
-        this.layoutHeaderVM = layoutHeaderVM;
+    public void setCartHeaderVM(CartHeaderVM cartHeaderVM) {
+        this.cartHeaderVM = cartHeaderVM;
     }
 
     public String getTotalPrice() {

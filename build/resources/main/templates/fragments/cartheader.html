@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 </head>
 <body>
-<div th:fragment="header_info (vm)">
+<div th:fragment="header_cart (vm)">
     <div class="agileits_header">
         <div class="w3l_offers">
             <a href="products.html">Today's special Offers !</a>
@@ -19,20 +19,20 @@
         <div class="product_list_header">
             <form th:action="@{/cart}" method="get" class="last">
                 <fieldset>
-                    <input type="submit" name="submit" value="View your cart" class="button" />
+                    <input type="submit" name="submit" value="View your cart" class="button"  />
                 </fieldset>
             </form>
         </div>
         <div class="w3l_header_right">
             <ul>
                 <li class="dropdown profile_details_drop">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i><span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i></a>
                     <div class="mega-dropdown-menu">
                         <div sec:authorize="isAuthenticated()" class="w3ls_vegetables">
                             <ul class="dropdown-menu drp-mnu">
                                 <li><a th:href="@{/user-detail}" th:text="${#httpServletRequest.remoteUser}"></a></li>
                                 <li><a  th:href="@{/logout}">Logout</a></li>
-                                <li><a th:href="@{/Order-detail}"></a></li>
+                                <li><a th:href="@{/Order-detail}">Order History</a></li>
                             </ul>
                         </div>
                         <div sec:authorize="isAnonymous()" class="w3ls_vegetables">
@@ -98,41 +98,6 @@
                 <li>Households</li>
             </ul>
         </div>
-    </div>
-    <!-- //products-breadcrumb -->
-    <!-- banner -->
-    <div class="banner">
-
-        <div class="w3l_banner_nav_left">
-            <nav class="navbar nav_bottom">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header nav_2">
-                    <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
-                    <ul class="nav navbar-nav nav_1">
-                        <li><a>
-                            <h4>Category</h4>
-                        </a></li>
-                        <li th:each="category : ${vm.getCategoryVMList()}">
-                            <a th:href="${'/?categoryId='+category.getId()}" th:text="${category.getName()}" ></a>
-                        </li>
-                    </ul>
-                </div><!-- /.navbar-collapse -->
-            </nav>
-        </div>
-        <div class="w3l_banner_nav_right">
-            <div class="w3l_banner_nav_right_banner1">
-                <h3>Best Deals For New Products<span class="blink_me"></span></h3>
-            </div>
-        </div>
-        <div class="clearfix"></div>
     </div>
 </div>
 </body>
