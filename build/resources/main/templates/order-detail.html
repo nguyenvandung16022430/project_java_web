@@ -24,7 +24,7 @@
 <div class="container">
     <h3 style="margin-top: 30px">Total product(s): <span th:text="${vm.getTotalProduct()}"></span></h3>
     <div class="table-responsive">
-        <table class="table table-bordered">
+        <table class="table timetable_sub">
             <thead>
             <tr>
                 <th colspan="1">Index</th>
@@ -56,14 +56,20 @@
                 <th colspan="10">Total price</th>
                 <th colspan="2" th:text="${vm.getTotalPrice()}+'$'"></th>
             </tr>
+            <tr>
+                <th colspan="10">Trạng thái</th>
+                <th colspan="2">chờ xác nhận</th>
+            </tr>
             </tfoot>
         </table>
 
     </div>
-
+<br>
     <div style="text-align: right">
-        <a class="btn btn-primary" th:href="@{'../../../'}" role="button">Return home</a>
+        <a class="btn btn-success" th:href="@{'../../../'}" role="button">Return home</a>
+        <a class="btn btn-success" th:href="@{'../../../'}" role="button">Printf Order</a>
     </div>
+    <br>
 </div>
 <div th:replace="fragments/footer :: footer_info"></div>
 </body>

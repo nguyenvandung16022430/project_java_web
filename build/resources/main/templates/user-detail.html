@@ -1,0 +1,127 @@
+
+<!--
+author: W3layouts
+author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Checkout</title>
+    <!-- for-mobile-apps -->
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" type="text/css" media="all" />
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" media="all" />
+    <!-- font-awesome icons -->
+    <link th:href="@{/css/font-awesome.css}" rel="stylesheet" type="text/css" media="all" />
+    <!-- //font-awesome icons -->
+    <!-- js -->
+    <script th:src="@{/js/jquery-1.11.1.min.js}"></script>
+    <!-- //js -->
+    <!-- start-smoth-scrolling -->
+    <script type="text/javascript" th:src="@{js/move-top.js}"></script>
+    <script type="text/javascript" th:src="@{js/easing.js}"></script>
+
+</head>
+
+<body>
+<!-- header -->
+
+<!-- //header -->
+<!-- products-breadcrumb -->
+<div th:replace="fragments/cartheader :: header_cart (vm=${vm.getCartHeaderVM()})"></div>
+<!-- //products-breadcrumb -->
+<!-- banner -->
+<div class="banner">
+
+    <!-- about -->
+    <div class="privacy about">
+        <h3>Chec<span>kout</span></h3>
+
+        <div class="checkout-right">
+            <h4>Your shopping cart contains: <a></a><span>Products</span></h4>
+        </div>
+        <div class="checkout-left">
+            <div class="col-md-8 address_form_agile">
+                <h4>User Details</h4>
+                <form th:action="@{/user/update}" method="post" class="creditly-card-form agileinfo_form" th:object="${user}">
+                    <div th:if="${param.updateSuccess}">
+                        <div class="alert alert-primary">
+                            Update success !!
+                        </div>
+                    </div>
+
+                    <div th:if="${param.updateFail}">
+                        <div class="alert alert-danger">
+                            Update fail !!
+                        </div>
+                    </div>
+                    <section class="creditly-wrapper wthree, w3_agileits_wrapper">
+                        <div class="information-wrapper">
+                            <div class="first-row form-group">
+                                <div class="controls">
+                                    <label class="control-label">Full name: </label>
+                                    <input class="billing-address-name form-control" type="text" name="name" placeholder="Full Name"  id="input-name" th:field="*{name}">
+                                </div>
+                                <div class="w3_agileits_card_number_grids">
+                                    <div class="w3_agileits_card_number_grid_left">
+                                        <div class="controls">
+                                            <label class="control-label">Mobile number:</label>
+                                            <input class="form-control" type="text" placeholder="Mobile Number" id="input-phone-number" th:field="*{phoneNumber}">
+                                        </div>
+                                    </div>
+
+                                    <div class="w3_agileits_card_number_grid_right">
+                                        <div class="controls">
+                                            <label class="control-label">Email: </label>
+                                            <input class="form-control" type="text" placeholder="Your Email"  id="input-email" th:field="*{email}">
+                                        </div>
+                                    </div>
+                                    <div class="clear"> </div>
+                                </div>
+                                <div class="controls">
+                                    <label class="control-label">Gender: </label>
+                                    <select th:field="*{gender}">
+                                        <option value="0">Undefined</option>
+                                        <option value="1">Male</option>
+                                        <option value="2">Female</option>
+                                    </select>
+                                </div>
+                                <div class="controls">
+                                    <label class="control-label">Address: </label>
+                                    <input class="form-control" type="text" placeholder="Address"  id="input-address" th:field="*{address}">
+                                </div>
+
+                            </div>
+                            <button class="submit check_out">Update</button>
+                        </div>
+                    </section>
+                </form>
+            </div>
+
+            <div class="clearfix"> </div>
+
+        </div>
+
+    </div>
+    <!-- //about -->
+</div>
+<div class="clearfix"></div>
+</div>
+<!-- //banner -->
+
+
+<!-- newsletter -->
+<!-- //footer -->
+<div th:replace="fragments/footer :: footer_info"></div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.9.0/sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+</body>
+</html>

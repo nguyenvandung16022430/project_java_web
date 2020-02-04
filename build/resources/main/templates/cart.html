@@ -25,7 +25,7 @@
 <div class="container">
     <h3 style="margin-top: 30px">Total product(s): <span th:text="${vm.getProductAmount()}"></span></h3>
     <div class="table-responsive">
-        <table class="table table-bordered">
+        <table class="timetable_sub">
             <thead>
             <tr>
                 <th colspan="1">Index</th>
@@ -63,7 +63,7 @@
         </table>
 
     </div>
-
+<br>
     <div style="text-align: right">
         <a class="btn btn-success" th:href="@{'../order/checkout'}" role="button">Checkout</a>
     </div>

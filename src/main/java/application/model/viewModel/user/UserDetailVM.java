@@ -1,16 +1,26 @@
 package application.model.viewModel.user;
 
+import application.model.viewModel.common.CartHeaderVM;
 import application.model.viewModel.common.LayoutHeaderVM;
 
 public class UserDetailVM {
 
-    private LayoutHeaderVM layoutHeaderVM;
+   private CartHeaderVM cartHeaderVM;
+    private UserVM userVM;
 
-    public LayoutHeaderVM getLayoutHeaderVM() {
-        return layoutHeaderVM;
+    public UserVM getUserVM() {
+        return userVM;
     }
 
-    public void setLayoutHeaderVM(LayoutHeaderVM layoutHeaderVM) {
-        this.layoutHeaderVM = layoutHeaderVM;
+    public void setUserVM(UserVM userVM) {
+        this.userVM = userVM;
+    }
+
+    public CartHeaderVM getCartHeaderVM() {
+        return cartHeaderVM;
+    }
+
+    public void setCartHeaderVM(CartHeaderVM cartHeaderVM) {
+        this.cartHeaderVM = cartHeaderVM;
     }
 }
