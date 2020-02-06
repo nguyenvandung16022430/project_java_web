@@ -90,7 +90,7 @@ public class UserService {
 
             // insert new role
             UserRole userRole = new UserRole();
-            userRole.setRoleId(RoleIdConstant.Role_User);
+            userRole.setRoleId(RoleIdConstant.User);
             userRole.setUserId(user.getId());
 
             userRoleRepository.save(userRole);
