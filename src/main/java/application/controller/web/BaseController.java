@@ -2,10 +2,13 @@ package application.controller.web;
 
 import application.data.model.Cart;
 import application.data.model.Category;
+import application.data.model.User;
 import application.data.service.CartService;
 import application.data.service.CategoryService;
+import application.data.service.UserService;
 import application.model.viewModel.common.CartHeaderVM;
 import application.model.viewModel.common.CategoryVM;
+import application.model.viewModel.common.LayoutHeaderAdminVM;
 import application.model.viewModel.common.LayoutHeaderVM;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,6 +29,9 @@ public class BaseController {
 
     @Autowired
     private CartService cartService;
+
+    @Autowired
+    private UserService userService;
 
     private List<CategoryVM> getCategoryVMList(){
         List<Category> categoryList = categoryService.getListAllCategories();
@@ -48,6 +54,23 @@ public class BaseController {
     public CartHeaderVM getCartHeaderVM (){
         CartHeaderVM vm = new CartHeaderVM();
         return vm;
+    }
+    public LayoutHeaderAdminVM getLayoutHeaderAdminVM() {
+
+        LayoutHeaderAdminVM vm = new LayoutHeaderAdminVM();
+
+        String  username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User userEntity = userService.findUserByUsername(username);
+
+        if(userEntity!=null) {
+            vm.setUserName(username);
+            if(userEntity.getAvatar() != null) {
+                vm.setAvatar(userEntity.getAvatar());
+            } else vm.setAvatar("https://aets.org.es/wp-content/uploads/2014/12/omita-el-icono-del-perfil-avatar-placeholder-gris-de-la-foto-99724602.jpg");
+        }
+
+        return vm;
+
     }
 
     public void checkCookie(HttpServletResponse response,

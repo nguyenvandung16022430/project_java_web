@@ -862,6 +862,44 @@ button.submit.check_out{
     -ms-transition: 0.5s all;
     text-transform: uppercase;
 }
+button.change-password{
+	display: block;
+	position: relative;
+	padding: 11px 30px;
+	letter-spacing: 1px;
+	background: #84c639;
+	font-size: 1.2em;
+	color: #fff;
+	font-weight: 500;
+	border: none;
+	outline: none;
+	transition: 0.5s all;
+	-webkit-transition: 0.5s all;
+	-moz-transition: 0.5s all;
+	-o-transition: 0.5s all;
+	-ms-transition: 0.5s all;
+	text-transform: uppercase;
+}
+a.submit.check_out{
+	display: block;
+	position: relative;
+	padding: 11px 30px;
+	letter-spacing: 1px;
+	background: red;
+	font-size: 1.2em;
+	color: #fff;
+	font-weight: 500;
+	border: none;
+	outline: none;
+	transition: 0.5s all;
+	-webkit-transition: 0.5s all;
+	-moz-transition: 0.5s all;
+	-o-transition: 0.5s all;
+	-ms-transition: 0.5s all;
+
+}
+
+
 /*-- //Pay-page --*/
 /*-- //cart --*/
 .column div.agile_top_brand_left_grid {
@@ -3890,6 +3928,7 @@ input.checkbox:checked:after {
 		letter-spacing: 1px;
 		font-size: 0.9em;
 	}
+
 }
 @media (max-width: 600px){
 	.w3l_search {

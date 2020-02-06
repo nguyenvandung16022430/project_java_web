@@ -3,6 +3,7 @@ package application.controller.web;
 import application.data.model.User;
 import application.data.service.UserService;
 import application.model.viewModel.common.ProductVM;
+import application.model.viewModel.user.ChangePasswordVM;
 import application.model.viewModel.user.UserDetailVM;
 import application.model.viewModel.user.UserVM;
 import org.apache.logging.log4j.LogManager;
@@ -80,4 +81,9 @@ public class UserController extends BaseController  {
             }
             return "redirect:/user/detail?updateFail";
         }
+    @GetMapping("/change-password")
+    public String changePassWord() {
+        return "/change-password";
+    }
+
 }

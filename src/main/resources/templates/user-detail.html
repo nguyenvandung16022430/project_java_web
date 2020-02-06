@@ -15,15 +15,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link th:href="@{/css/bootstrap.css}" rel="stylesheet" type="text/css" media="all" />
     <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" media="all" />
+    <link th:href="@{/css/user-detail.css}" rel="stylesheet" type="text/css" media="all" />
     <!-- font-awesome icons -->
     <link th:href="@{/css/font-awesome.css}" rel="stylesheet" type="text/css" media="all" />
     <!-- //font-awesome icons -->
     <!-- js -->
     <script th:src="@{/js/jquery-1.11.1.min.js}"></script>
-    <!-- //js -->
-    <!-- start-smoth-scrolling -->
-    <script type="text/javascript" th:src="@{js/move-top.js}"></script>
-    <script type="text/javascript" th:src="@{js/easing.js}"></script>
 
 </head>
 
@@ -39,16 +36,28 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
     <!-- about -->
     <div class="privacy about">
-        <h3>Chec<span>kout</span></h3>
-
+        <h3>User-<span>Detail</span></h3>
         <div class="checkout-right">
-            <h4>Your shopping cart contains: <a></a><span>Products</span></h4>
         </div>
-        <div class="checkout-left">
-            <div class="col-md-8 address_form_agile">
-                <h4>User Details</h4>
-                <form th:action="@{/user/update}" method="post" class="creditly-card-form agileinfo_form" th:object="${user}">
+            <form th:action="@{/user/update}" method="post" class="creditly-card-form agileinfo_form" th:object="${user}">
 
+        <div class="checkout-left">
+            <div class="col-md-4 checkout-left-basket">
+                <div style="text-align: center">
+                    <img th:if="*{avatar}" th:src="*{avatar}" class="user-avatar">
+                </div>
+                <div style="text-align: center">
+                    <img th:unless="*{avatar}" src="https://aets.org.es/wp-content/uploads/2014/12/omita-el-icono-del-perfil-avatar-placeholder-gris-de-la-foto-99724602.jpg" class="user-avatar">
+                </div>
+
+                <div style="text-align: center; margin-top: 20px">
+                    <div class="btn" id="choseFile" style="background-color: #84c639;border: none">chose file</div>
+                    <input type='file'  id="input-avatar" style="display: none"/>
+                </div>
+                <input type="text" id="avatar" th:field="*{avatar}" style="display: none">
+            </div>
+            <div class="col-md-8 address_form_agile">
+                <h4>Infomation:</h4>
                     <div th:if="${param.updateSuccess}">
                         <div class="alert alert-primary">
                             Update success !!
@@ -98,15 +107,25 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 </div>
 
                             </div>
-                            <button class="submit check_out">Update</button>
+                            <div class="row">
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                            <button class="submit check_out" type="submit">Update</button>
+                                </div>
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <a class="submit check_out" th:href="@{/user/change-password}">Change password</a>
+                                </div>
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                </div>
+                            </div>
                         </div>
                     </section>
-                </form>
+
             </div>
 
             <div class="clearfix"> </div>
 
         </div>
+        </form>
 
     </div>
     <!-- //about -->
@@ -125,5 +144,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.9.0/sweetalert2.all.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+<script type="text/javascript">
+    document.getElementById('choseFile').onclick = function () {
+        document.getElementById('input-avatar').click();
+    }
+</script>
+<script th:src="@{/js/user-detail.js}"></script>
 </body>
 </html>

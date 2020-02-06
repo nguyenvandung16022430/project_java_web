@@ -30,6 +30,14 @@ public class Product {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     private List<ProductImage> ProductImagelist = new ArrayList<>();
 
+    public List<ProductCategory> getProductCategories() {
+        return productCategories;
+    }
+
+    public void setProductCategories(List<ProductCategory> productCategories) {
+        this.productCategories = productCategories;
+    }
+
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "product")
     private List<ProductCategory> productCategories = new ArrayList<>();
     @Column(name = "name")

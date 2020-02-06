@@ -70,4 +70,8 @@ public class ProductService {
         return  productRepository.getListProductbyProductNameContaining(page,productName);
 
     }
+
+    public List<Product> getListProductbyCategoryIdContaining(Integer categoryId){
+        return productRepository.getListProductbyCategoryIdContaining(categoryId);
+    }
 }
