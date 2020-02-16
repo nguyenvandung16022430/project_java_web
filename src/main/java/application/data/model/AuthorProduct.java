@@ -17,7 +17,7 @@ public class AuthorProduct {
     private int authorId;
 
     @ManyToOne(optional = true,fetch = FetchType.LAZY)
-    @JoinColumn(name = "prouct_id")
+    @JoinColumn(name = "product_id")
     private Product product;
 
     @Column(name = "product_id", insertable = false, updatable = false)

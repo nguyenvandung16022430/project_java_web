@@ -11,6 +11,15 @@ public class OderDetailVM {
     private List<OrderProductVM> orderProductVMS;
     private String totalPrice;
     private int totalProduct;
+    private int statusId;
+
+    public int getStatusId() {
+        return statusId;
+    }
+
+    public void setStatusId(int statusId) {
+        this.statusId = statusId;
+    }
 
     private CartHeaderVM cartHeaderVM;
 

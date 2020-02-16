@@ -2,6 +2,7 @@ package application.data.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity(name = "dbo_author")
@@ -16,6 +17,28 @@ public class Author {
 
     @Column(name = "author_name")
     private String name;
+
+    @Column(name = "profile")
+    private String profile;
+
+    @Column(name = "birth_day")
+    private Date birthDay;
+
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
+    }
+
+    public Date getBirthDay() {
+        return birthDay;
+    }
+
+    public void setBirthDay(Date birthDay) {
+        this.birthDay = birthDay;
+    }
 
     public int getId() {
         return id;

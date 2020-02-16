@@ -2,6 +2,7 @@ package application.model.dto;
 
 import application.extension.CustomerDateDeserializer;
 import application.extension.CustomerDateSerialize;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -14,6 +15,16 @@ public class ProductDTO {
     private String shortDesc;
     private String mainImage;
     private double price;
+    @JsonProperty("categoryId")
+    private int categoryId;
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
 
     @JsonDeserialize(using = CustomerDateDeserializer.class)
     @JsonSerialize(using = CustomerDateSerialize.class)

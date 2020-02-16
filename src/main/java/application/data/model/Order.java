@@ -20,12 +20,9 @@ public class Order {
     @JoinColumn(name = "discount_id")
     private Discount discount;
 
-    @Column(name = "status_id", insertable = false, updatable = false)
-    private Integer statusId;
+    @Column(name = "status")
+    private Integer status;
 
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = "status_id")
-    private Status status;
 
     @Column(name = "guid")
     private String guid;
@@ -151,18 +148,11 @@ public class Order {
     }
 
     public int getStatusId() {
-        return statusId;
-    }
-
-    public void setStatusId(int statusId) {
-        this.statusId = statusId;
-    }
-
-    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setStatusId(int statusId) {
+        this.status = statusId;
     }
+
 }

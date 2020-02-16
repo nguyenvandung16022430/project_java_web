@@ -45,4 +45,7 @@ public class ProductCategoryService {
     public long getTotalProducts(){
         return productCategoryRepository.getTotalProducts();
     }
+    public int getcategoryIdByProductid(Integer productId){
+      return   productCategoryRepository.getcategoryIdByProductid(productId);
+    }
 }

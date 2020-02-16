@@ -1,5 +1,6 @@
 package application.controller.web;
 
+import application.constant.StatusConstant;
 import application.data.model.*;
 import application.data.service.CartProductService;
 import application.data.service.CartService;
@@ -70,7 +71,6 @@ public class OrderController extends BaseController {
     @PostMapping("/checkout")
     public String checkout(Model model,
                            @Valid @ModelAttribute("order") OrderVM orderVM,
-                           @Valid @ModelAttribute("productname") ProductVM productName,
                            HttpServletResponse response,
                            HttpServletRequest request,
                            final Principal principal){
@@ -116,12 +116,16 @@ public class OrderController extends BaseController {
                 }
                 order.setListProductOrders(orderProducts);
                 order.setPrice(totalPrice);
+                order.setStatusId(StatusConstant.uncfirmed);
+                System.out.println(order.getStatusId());
                 orderService.addNewOrder(order);
                 cartService.deleteCart(cartEntity.getId());
             }
         }
     return "redirect:/order/history";
     }
+
+
     @GetMapping("/history")
     public String orderHistory(Model model,
                                @Valid @ModelAttribute("productname") ProductVM productName,
@@ -202,6 +206,7 @@ public class OrderController extends BaseController {
                 totalPrice += orderProduct.getPrice();
 
                 orderProductVMS.add(orderProductVM);
+                vm.setStatusId(orderEntity.getStatusId());
             }
         }
         vm.setCartHeaderVM(this.getCartHeaderVM());

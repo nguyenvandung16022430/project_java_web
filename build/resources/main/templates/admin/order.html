@@ -1,0 +1,250 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin - Blank Page</title>
+
+    <!-- Custom fonts for this template-->
+    <link th:href="@{/vendor/fontawesome-free/css/all.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/vendor/datatables/dataTables.bootstrap4.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/vendor/mdi/css/materialdesignicons.min.css}">
+    <!-- Page level plugin CSS-->
+
+
+    <!-- Custom styles for this template-->
+    <link th:href="@{/css/sb-admin.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/vendor/css/vendor.bundle.base.css}">
+    <link rel="shortcut icon" th:href="@{/images/favicon.png}" />
+
+</head>
+
+<body id="page-top">
+
+<div th:replace="fragments/HeaderAdmin :: header_admin_info(vm=${vm.getLayoutHeaderAdminVM()})"></div>
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <div th:replace="fragments/SidebarAdmin :: sidebar_info"></div>
+
+    <div id="content-wrapper">
+
+        <div class="container-fluid">
+
+            <div class="page-header" style="display: flex !important;justify-content: space-between !important;">
+                <h1>Category Management</h1>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Sort By
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" th:href="${'?' +(#httpServletRequest.getParameter('page')==null?'':('&page='+#httpServletRequest.getParameter('page')))
+                                                                                       +(#httpServletRequest.getParameter('size')==null?'':('&size='+#httpServletRequest.getParameter('size')))
+                                                                                       +('&sort=' +1)
+                                                                                       }">Đơn chưa xác nhận</a>
+                        <a class="dropdown-item" th:href="${'?' +(#httpServletRequest.getParameter('page')==null?'':('&page='+#httpServletRequest.getParameter('page')))
+                                                                                       +(#httpServletRequest.getParameter('size')==null?'':('&size='+#httpServletRequest.getParameter('size')))
+                                                                                       +('&sort=' +2)
+                                                                                       }">Đơn đã xác nhận</a>
+                        <a class="dropdown-item" th:href="${'?' +(#httpServletRequest.getParameter('page')==null?'':('&page='+#httpServletRequest.getParameter('page')))
+                                                                                       +(#httpServletRequest.getParameter('size')==null?'':('&size='+#httpServletRequest.getParameter('size')))
+                                                                                       +('&sort=' +3)
+                                                                                       }">Đơn đã gửi</a>
+                        <a class="dropdown-item" th:href="${'?' +(#httpServletRequest.getParameter('page')==null?'':('&page='+#httpServletRequest.getParameter('page')))
+                                                                                       +(#httpServletRequest.getParameter('size')==null?'':('&size='+#httpServletRequest.getParameter('size')))
+                                                                                       +('&sort=' +4)
+                                                                                       }">Đơn đã nhận</a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th colspan="1">
+                                    Index
+                                </th>
+                                <th colspan="3">
+                                    UserName
+                                </th>
+                                <th colspan="3">
+                                    CustomerName
+                                </th>
+                                <th colspan="3">
+                                    Address
+                                </th>
+                                <th colspan="3">
+                                    Email
+                                </th>
+                                <th colspan="3">
+                                    PhoneNumber
+                                </th>
+                                <th colspan="3">
+                                    CreateDate
+                                </th>
+                                <th colspan="3">
+                                    Status
+                                </th>
+                                <th colspan="2">
+
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="order : ${vm.getOrderVMList()}">
+                                <td colspan="1" th:text="${order.getId()}"></td>
+                                <td colspan="3" th:text="${order.getUserName()}"></td>
+                                <td colspan="3" th:text="${order.getCustomerName()}"></td>
+                                <td colspan="3" th:text="${order.getAddress()}"></td>
+                                <td colspan="3" th:text="${order.getEmail()}"></td>
+                                <td colspan="3" th:text="${order.getPhoneNumber()}"></td>
+                                <td colspan="3" th:text="${order.getCreatedDate()}"></td>
+                                <td colspan="3"><a th:if="${order.getStatusId()==1}" text="Chờ xác nhận">Chờ xác nhận</a>
+                                    <a th:if="${order.getStatusId()==2}" text="Đã xác nhận đơn hàng">Đã xác nhận đơn hàng</a>
+                                    <a th:if="${order.getStatusId()==3}" text="Hàng đang được giao">Hàng đang được giao</a>
+                                    <a th:if="${order.getStatusId()==4}" text="Đã giao hàng">Đã giao hàng</a>
+                                    <a th:if="${order.getStatusId()==5}" text="Đơn hàng bị hủy">Đơn hàng bị hủy</a></td>
+                                <td colspan="2">
+                                    <i class="mdi mdi-checkbox-marked tooltip-test confirm-order" th:attr="data-order = ${order.getId()}" title="Detail order"  style="cursor: pointer" data-toggle="modal" title="confirm-order" data-target="#exampleModalLong"></i>
+                                    <i class="mdi mdi-cancel tooltip-test cancel-order" th:attr="data-order = ${order.getId()}" title="Detail order"  style="cursor: pointer"data-toggle="modal" title="cancel-order" data-target="#exampleModalCancel"></i>
+                                    <i class="mdi mdi-delete-circle tooltip-test delete-order" th:attr="data-order = ${order.getId()}" title="Detail order"  style="cursor: pointer"data-toggle="modal" title="delete-order" data-target="#exampleModalDelete" ></i>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <nav style="margin-top: 50px" aria-label="..." th:if="${vm.getOrderVMList().size()>0}">
+                <ul class="pagination">
+                    <th:block th:each="i: ${#numbers.sequence(0, page.totalPages - 1)}">
+                        <li class="page-item active" th:if="${page.number == i}" aria-current="page">
+                            <a class="page-link" th:href="${''}" th:text="${i+1}"><span class="sr-only"></span></a>
+                        </li>
+                        <li class="page-item"  th:unless="${page.number == i}"><a class="page-link" th:text="${i+1}"
+                                                                                  th:href="${'?'
+                                                                                       +('&page='+i)
+                                                                                       +(#httpServletRequest.getParameter('size')==null?'':('&size='+#httpServletRequest.getParameter('size')))
+                                                                                        +(#httpServletRequest.getParameter('sort')==null?'':('&sort='+#httpServletRequest.getParameter('sort')))
+                                                                                       }"></a></li>
+                    </th:block>
+                </ul>
+            </nav>
+
+
+
+
+
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Order status</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                           <h2>Bạn có xác nhận muốn chuyển trạng thái của order</h2>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary btn-confirm-order">xác nhận</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal fade" id="exampleModalCancel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongCancel">Order status</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <h2>Bạn có xác nhận muốn hủy order</h2>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary btn-cancel-order">xác nhận</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal fade" id="exampleModalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongDelete">Order status</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <h2>Bạn có xác nhận muốn chuyển trạng thái của order</h2>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary btn-delete-order">xác nhận</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Sticky Footer -->
+            <footer class="sticky-footer">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright © Your Website 2019</span>
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+        <!-- /.content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <!-- Logout Modal-->
+
+
+    <!-- Bootstrap core JavaScript-->
+    <!-- Custom scripts for all pages-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.9.0/sweetalert2.all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+    <script th:src="@{/js/sb-admin.min.js}"></script>
+    <script th:src="@{/vendor/js/vendor.bundle.base.js}"></script>
+    <script th:src="@{/vendor/js/vendor.bundle.addons.js}"></script>
+    <script th:src="@{/js/off-canvas.js}"></script>
+    <script th:src="@{/js/misc.js}"></script>
+    <script th:src="@{/js/admin-order.js}"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</div>
+</body>
+
+
+</html>

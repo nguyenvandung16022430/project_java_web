@@ -40,6 +40,9 @@ public class Product {
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "product")
     private List<ProductCategory> productCategories = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "product")
+    private List<AuthorProduct> authorProducts = new ArrayList<>();
     @Column(name = "name")
     private String name;
 

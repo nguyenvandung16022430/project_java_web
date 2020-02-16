@@ -3,11 +3,10 @@ package application.model.viewModel.order;
 public class OrderProductVM {
 
     private int productId;
-    private String mainImage;
     private int amount;
     private String price;
     private String name;
-
+    private String mainImage;
 
     public int getProductId() {
         return productId;

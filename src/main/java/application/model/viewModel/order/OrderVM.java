@@ -11,7 +11,24 @@ public class OrderVM {
     private String email;
     private Date createdDate;
     private String price;
+    private String userName;
+    private int statusId;
 
+    public int getStatusId() {
+        return statusId;
+    }
+
+    public void setStatusId(int statusId) {
+        this.statusId = statusId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     public int getId() {
         return id;

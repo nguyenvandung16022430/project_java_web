@@ -40,14 +40,18 @@ public class CartController extends BaseController {
                        HttpServletRequest request,
                        final Principal principal) {
 
-        this.checkCookie(response, request, principal);
+        this.checkCookie(response,request,principal);
+        if(principal == null){
+            System.out.println("lỗi ở đây");
+        }
+
         CartVM vm = new CartVM();
 
         int productAmount = 0;
         double totalPrice = 0;
         List<CartProductVM> cartProductVMList = new ArrayList<>();
 
-        String guid = getGuid(request);
+        String guid = this.getGuid(request);
 
         DecimalFormat df = new DecimalFormat("####0.00");
         try {
@@ -55,7 +59,11 @@ public class CartController extends BaseController {
                 Cart cartEntity = cartService.findFirstCartByGuid(guid);
                 if (cartEntity != null) {
                     productAmount = cartEntity.getListCartProduct().size();
-
+                    if (productAmount == 0) {
+                        vm.setCartHeaderVM(this.getCartHeaderVM());
+                        model.addAttribute("vm",vm);
+                        return "/non-product";
+                    }else {
                     for (CartProduct cartProduct : cartEntity.getListCartProduct()) {
                         CartProductVM cartProductVM = new CartProductVM();
                         cartProductVM.setId(cartProduct.getId());
@@ -67,8 +75,8 @@ public class CartController extends BaseController {
                         cartProductVM.setPrice(df.format(prince));
                         totalPrice += prince;
                         cartProductVMList.add(cartProductVM);
-
                     }
+                }
                 }
             }
         }catch (Exception e){

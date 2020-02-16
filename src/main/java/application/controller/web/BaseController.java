@@ -5,6 +5,7 @@ import application.data.model.Category;
 import application.data.model.User;
 import application.data.service.CartService;
 import application.data.service.CategoryService;
+import application.data.service.OrderService;
 import application.data.service.UserService;
 import application.model.viewModel.common.CartHeaderVM;
 import application.model.viewModel.common.CategoryVM;
@@ -32,6 +33,9 @@ public class BaseController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private OrderService orderService;
 
     private List<CategoryVM> getCategoryVMList(){
         List<Category> categoryList = categoryService.getListAllCategories();
@@ -68,6 +72,8 @@ public class BaseController {
                 vm.setAvatar(userEntity.getAvatar());
             } else vm.setAvatar("https://aets.org.es/wp-content/uploads/2014/12/omita-el-icono-del-perfil-avatar-placeholder-gris-de-la-foto-99724602.jpg");
         }
+        System.out.println(orderService.getAmountOrderUnconfirm());
+        vm.setAmountOrder(orderService.getAmountOrderUnconfirm());
 
         return vm;
 
@@ -97,13 +103,16 @@ public class BaseController {
                 response.addCookie(cookie2);
             }
         } else {
+            System.out.println("chay vao day rôi nè");
             boolean flag2 = true;
             String guid = null;
             if(cookie != null){
                 for(Cookie c : cookie){
                     if(c.getName().equals("guid")){
-                        flag2 = false;
-                        guid=c.getValue();
+                        if(cartService.findCartByGuid(c.getValue())==null) {
+                            flag2 = false;
+                            guid = c.getValue();
+                        }
                     }
                 }
             }

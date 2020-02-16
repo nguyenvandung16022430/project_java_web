@@ -11,7 +11,7 @@ public class ProductCategory {
     private int id;
 
     @Column(name = "category_id", insertable = false, updatable = false)
-    private int categoryId;
+    private Integer categoryId;
 
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")

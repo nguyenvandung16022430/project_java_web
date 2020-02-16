@@ -39,6 +39,7 @@ public class HomeController extends BaseController {
                        HttpServletRequest request,
                        HttpServletResponse response,
                        final Principal principal){
+        this.checkCookie(response,request,principal);
         HomeLandingVM vm = new HomeLandingVM();
         Pageable pageable =  new PageRequest(page,size);
         Page<Product> productPage = null;

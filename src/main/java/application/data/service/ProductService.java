@@ -74,4 +74,7 @@ public class ProductService {
     public List<Product> getListProductbyCategoryIdContaining(Integer categoryId){
         return productRepository.getListProductbyCategoryIdContaining(categoryId);
     }
+    public Page<Product>  getProductByAuthorId(Pageable page,Integer authorId){
+        return  productRepository.getProductByAuthorId(page,authorId);
+    }
 }

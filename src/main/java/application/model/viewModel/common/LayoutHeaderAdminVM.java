@@ -4,7 +4,15 @@ public class LayoutHeaderAdminVM {
 
     private String userName;
     private String avatar;
+    private int amountOrder;
 
+    public int getAmountOrder() {
+        return amountOrder;
+    }
+
+    public void setAmountOrder(int amountOrder) {
+        this.amountOrder = amountOrder;
+    }
 
     public String getUserName() {
         return userName;

@@ -13,6 +13,16 @@ public class ProductVM {
     private double price;
     private int amount;
     private Date createdDate;
+    private String categoryName;
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
     private List<ProductImageVM> productImageVMS;
 
     public int getId() {

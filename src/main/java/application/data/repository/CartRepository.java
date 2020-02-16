@@ -15,4 +15,8 @@ public interface CartRepository extends JpaRepository<Cart,Integer> {
             "WHERE :guid IS NULL OR c.guid = :guid " +
             "ORDER BY c.cart_id DESC LIMIT 1",nativeQuery = true)
     Cart findFirstCartByGuid(@Param("guid") String guid);
+
+    @Query(value = "SELECT user_name FROM dbo_cart c " +
+            "WHERE :guid IS NULL OR c.guid = :guid ",nativeQuery = true)
+    String findCartByGuid(@Param("guid") String guid);
 }

@@ -58,7 +58,14 @@
             </tr>
             <tr>
                 <th colspan="10">Trạng thái</th>
-                <th colspan="2">chờ xác nhận</th>
+                <th colspan="2">
+                    <a th:if="${vm.getStatusId()==1}" text="Chờ xác nhận">Chờ xác nhận</a>
+                    <a th:if="${vm.getStatusId()==2}" text="Đã xác nhận đơn hàng">Đã xác nhận đơn hàng</a>
+                    <a th:if="${vm.getStatusId()==3}" text="Hàng đang được giao">Hàng đang được giao</a>
+                    <a th:if="${vm.getStatusId()==4}" text="Đã giao hàng">Đã giao hàng</a>
+                    <a th:if="${vm.getStatusId()==5}" text="Đơn hàng bị hủy">Đơn hàng bị hủy</a>
+                </th>
+
             </tr>
             </tfoot>
         </table>

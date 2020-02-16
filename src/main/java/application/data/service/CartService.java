@@ -55,4 +55,7 @@ public class CartService {
         }
         return null;
     }
+    public String findCartByGuid(String guid){
+        return cartRepository.findCartByGuid(guid);
+    }
 }
