@@ -65,7 +65,7 @@
     </div>
 <br>
     <div style="text-align: right">
-        <a class="btn btn-success" th:href="@{'../order/checkout'}" role="button">Checkout</a>
+        <a class="btn btn-success" th:href="${'../order/checkout/'+ vm.getCartId()}" role="button">Checkout</a>
     </div>
 </div>
 <br>

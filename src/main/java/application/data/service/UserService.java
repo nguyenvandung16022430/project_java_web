@@ -71,14 +71,19 @@ public class UserService {
 
     public StatusRegisterUserEnum registerNewUser(User user) {
         logger.info("Start registerNewUser");
+        System.out.println("chạy đến đây rồi");
         try {
             // check existed user
             if(findUserByUsername(user.getUserName()) != null) {
+                System.out.println("trùng user name");
                 return StatusRegisterUserEnum.Existed_Username;
+
             }
 
             if(findUserByEmail(user.getEmail()) != null) {
+                System.out.println("trùng user email");
                 return StatusRegisterUserEnum.Existed_Email;
+
             }
 
             // hash pass
@@ -86,6 +91,7 @@ public class UserService {
             user.setCreadedDate(new Date());
 
             // save user
+            System.out.println("chạy tiếp tới đây");
             userRepository.save(user);
 
             // insert new role

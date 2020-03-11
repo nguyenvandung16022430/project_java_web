@@ -60,7 +60,32 @@ public class Product {
 
     @Column(name = "published_date")
     private Date publishedDate;
+    @Column(name = "hot")
+    private Integer hot;
 
+    public void setPublisherId(Integer publisherId) {
+        this.publisherId = publisherId;
+    }
+
+    public void setDiscountId(Integer discountId) {
+        this.discountId = discountId;
+    }
+
+    public List<AuthorProduct> getAuthorProducts() {
+        return authorProducts;
+    }
+
+    public void setAuthorProducts(List<AuthorProduct> authorProducts) {
+        this.authorProducts = authorProducts;
+    }
+
+    public int getHot() {
+        return hot;
+    }
+
+    public void setHot(int hot) {
+        this.hot = hot;
+    }
 
     public int getId() {
         return id;

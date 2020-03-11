@@ -44,15 +44,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	      <div class="checkout-right">
 			  <h4>Your shopping cart contains: <a></a><span>Products</span></h4>
 			</div>
-			<div class="checkout-left">
+			<div class="checkout-left" >
 				<div class="col-md-4 checkout-left-basket">
 					<h4>Continue to basket</h4>
+					<ul style="overflow: auto; max-height: 280px;" th:each="cartProduct : ${vm.getCartProductVMS()}">
+						<li><a th:text="${cartProduct.getProductName()}"></a> <i>-</i> <a th:text="${'số lượng :' +cartProduct.getAmount()}"></a>  <span><a th:text="${cartProduct.getPrice()}"></a></span></li>
+					</ul>
 					<ul>
-						<li>Product1 <i>-</i> <span>$15.00 </span></li>
-						<li>Product2 <i>-</i> <span>$25.00 </span></li>
-						<li>Product3 <i>-</i> <span>$29.00 </span></li>
-						<li>Total Service Charges <i>-</i> <span>$15.00</span></li>
-						<li>Total <i>-</i> <span>$84.00</span></li>
+					<li>Total Service Charges: <span></span></li>
+					<li>Total:<span th:text="${vm.getTotalPrice()}"></span></li>
 					</ul>
 				</div>
 				<div class="col-md-8 address_form_agile">

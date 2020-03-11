@@ -45,4 +45,16 @@ public class OrderProductService {
         }
         return false;
     }
+    public int countAmountOrderProductInAYear(Integer nam,Integer th){
+        if(orderProductRepository.countAmountOrderProductInAYear(nam,th) != null) {
+            return orderProductRepository.countAmountOrderProductInAYear(nam,th);
+        }
+        return 0;
+    }
+    public int countAmountOrderProductInAMonth(Integer nam,int th,int ng) {
+        if (orderProductRepository.countAmountOrderProductInAMonth(nam,th,ng) != null){
+            return orderProductRepository.countAmountOrderProductInAMonth(nam,th,ng);
+    }
+    return 0;
+    }
 }

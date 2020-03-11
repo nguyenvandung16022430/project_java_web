@@ -1,19 +1,23 @@
 package application.controller.web;
 
-import application.data.model.Author;
-import application.data.model.Category;
-import application.data.model.Order;
-import application.data.model.Product;
+import application.data.model.*;
 import application.data.service.*;
 import application.model.viewModel.admin.*;
+import application.model.viewModel.cart.CartAdminVM;
+import application.model.viewModel.cart.CartProductVM;
+import application.model.viewModel.cart.CartVM;
 import application.model.viewModel.common.AuthorVM;
 import application.model.viewModel.common.CategoryVM;
+import application.model.viewModel.common.ChartDataVM;
 import application.model.viewModel.common.ProductVM;
 import application.model.viewModel.order.OrderVM;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,13 +26,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.jws.WebParam;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.security.Principal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @Controller
 @RequestMapping(path = "/admin")
 public class AdminController extends BaseController {
+    private static  final Logger logger = LogManager.getLogger(AdminController.class);
+    @Autowired
+    private UserService userService;
     @Autowired
     private CategoryService categoryService;
     @Autowired
@@ -39,9 +51,13 @@ public class AdminController extends BaseController {
 
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private OrderProductService orderProductService;
 
     @Autowired
     private AuthorService authorService;
+    @Autowired
+    private CartService cartService;
 
     @GetMapping("")
     public String admin(Model model){
@@ -203,4 +219,124 @@ public class AdminController extends BaseController {
     model.addAttribute("page",authorPage);
     return "/admin/author";
 }
+@GetMapping("/chart")
+   public String getChart(Model model){
+        ChartVM vm = new ChartVM();
+        vm.setLayoutHeaderAdminVM(this.getLayoutHeaderAdminVM());
+        List<ChartDataVM> chartDataVMS1 = new ArrayList<>();
+    Calendar cal = Calendar.getInstance();
+    int day = cal.get(Calendar.DAY_OF_MONTH);
+    System.out.println(day);
+    int month = cal.get(Calendar.MONTH) +1;
+    System.out.println(month);
+    int year = cal.get(Calendar.YEAR);
+    System.out.println(year);
+    for(Integer i = 1;i<=month;i++){
+        String th = String.valueOf(i);
+        System.out.println(i);
+        long amount = orderProductService.countAmountOrderProductInAYear(year,i);
+        chartDataVMS1.add(new ChartDataVM(th,amount));
+    }
+    vm.setChartDataVMS1(chartDataVMS1);
+    List<ChartDataVM> chartDataVMS2 = new ArrayList<>();
+    for(int i= 1;i<=day;i++){
+        String ng = String.valueOf(i);
+        System.out.println(i);
+        long amount = orderProductService.countAmountOrderProductInAMonth(year,month,i);
+        System.out.println(amount);
+        chartDataVMS2.add(new ChartDataVM(ng,amount));
+    }
+    vm.setChartDataVMS2(chartDataVMS2);
+    model.addAttribute("vm",vm);
+    return "/admin/charts";
+}
+@GetMapping("/cart")
+    public String getAdminCart(Model model,@Valid @ModelAttribute("productname")ProductVM productName,
+                               @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+                               @RequestParam(name = "size", required = false, defaultValue = "8") Integer size
+                               ){
+            if(productName.getName() == null || productName.getName().isEmpty()){
+                AdminCartVM vm = new AdminCartVM();
+                vm.setLayoutHeaderAdminVM(this.getLayoutHeaderAdminVM());
+                model.addAttribute("vm",vm);
+                return "/admin/admincartNull";
+            }else {
+                AdminCartVM vm = new AdminCartVM();
+                Pageable pageable = new PageRequest(page,size);
+
+                Page<Product> productPage = null;
+                productPage = productService.getListProductbyProductNameContaining(pageable,productName.getName().trim());
+                vm.setKeyWord("Find with key: " + productName.getName());
+                List<ProductVM> productVMList = new ArrayList<>();
+
+                for (Product product : productPage.getContent()){
+                    ProductVM productVM = new ProductVM();
+                    productVM.setId(product.getId());
+                    productVM.setName(product.getName());
+                    productVM.setMainImage(product.getMainImage());
+                    productVM.setPrice(product.getPrice());
+                    productVM.setShortDesc(product.getShortDesc());
+                    productVM.setCreatedDate(product.getPublishedDate());
+                    productVM.setAmount(product.getAmount());
+
+                    productVMList.add(productVM);
+                }
+                vm.setKeyWord(productName.getName());
+                vm.setLayoutHeaderAdminVM(this.getLayoutHeaderAdminVM());
+                vm.setProductVMList(productVMList);
+                model.addAttribute("vm",vm);
+                model.addAttribute("page",productPage);
+            }
+        return "/admin/admincart";
+}
+@GetMapping("/viewcart")
+    public String cart(Model model,
+                       final Principal principal) {
+
+    CartAdminVM vm = new CartAdminVM();
+
+        int productAmount = 0;
+        double totalPrice = 0;
+        List<CartProductVM> cartProductVMList = new ArrayList<>();
+
+        DecimalFormat df = new DecimalFormat("####0.00");
+        try {
+            if (principal != null) {
+                String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+                User userEntity = userService.findUserByUsername(userName);
+                Cart cartEntity = cartService.findByUserName(userName+"admin"+userEntity.getPasswordHash());
+                if (cartEntity != null) {
+                    productAmount = cartEntity.getListCartProduct().size();
+                    vm.setCartId(cartEntity.getId());
+                    if (productAmount == 0) {
+                        vm.setLayoutHeaderAdminVM(this.getLayoutHeaderAdminVM());
+                        model.addAttribute("vm",vm);
+                        return "/non-product";
+                    }else {
+                        for (CartProduct cartProduct : cartEntity.getListCartProduct()) {
+                            CartProductVM cartProductVM = new CartProductVM();
+                            cartProductVM.setId(cartProduct.getId());
+                            cartProductVM.setAmount(cartProduct.getAmount());
+                            cartProductVM.setMainImage(cartProduct.getProduct().getMainImage());
+                            cartProductVM.setProductName(cartProduct.getProduct().getName());
+                            cartProductVM.setProductId(cartProduct.getProduct().getId());
+                            double prince = cartProduct.getAmount() * cartProduct.getProduct().getPrice();
+                            cartProductVM.setPrice(df.format(prince));
+                            totalPrice += prince;
+                            cartProductVMList.add(cartProductVM);
+                        }
+                    }
+                }
+            }
+        }catch (Exception e){
+            logger.error(e.getMessage());
+        }
+        vm.setProductAmount(productAmount);
+        vm.setCartProductVMS(cartProductVMList);
+        vm.setTotalPrice(df.format(totalPrice));
+        vm.setLayoutHeaderAdminVM(this.getLayoutHeaderAdminVM());
+
+        model.addAttribute("vm",vm);
+        return "/admin/viewcart";
+    }
 }

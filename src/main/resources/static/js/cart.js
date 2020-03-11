@@ -5,6 +5,9 @@ $(document).ready(function() {
         dataCartProduct.id = $(this).data("id");
         dataCartProduct.amount = $(this).val();
 
+        console.log(1)
+        console.log(dataCartProduct.amount);
+
 
         NProgress.start();
 

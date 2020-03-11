@@ -4,15 +4,27 @@ Chart.defaults.global.defaultFontColor = '#292b2c';
 
 // Bar Chart Example
 var ctx = document.getElementById("myBarChart");
+var dataChart = [];
+var labelChart = [];
+var dataChartSort = [];
+for(var i=0;i<vm.chartDataVMS2.length;i++) {
+  dataChart.push(vm.chartDataVMS2[i].value);
+  dataChartSort.push(vm.chartDataVMS2[i].value);
+  labelChart.push(vm.chartDataVMS2[i].label);
+}
+dataChartSort.sort((a,b)=>a-b);
+var j  = dataChartSort.length -1;
+var max = dataChartSort[j];
+console.log(max);
 var myLineChart = new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: ["January", "February", "March", "April", "May", "June"],
+    labels: labelChart,
     datasets: [{
       label: "Revenue",
       backgroundColor: "rgba(2,117,216,1)",
       borderColor: "rgba(2,117,216,1)",
-      data: [4215, 5312, 6251, 7841, 9821, 14984],
+      data: dataChart,
     }],
   },
   options: {
@@ -25,13 +37,13 @@ var myLineChart = new Chart(ctx, {
           display: false
         },
         ticks: {
-          maxTicksLimit: 6
+          maxTicksLimit: 32
         }
       }],
       yAxes: [{
         ticks: {
           min: 0,
-          max: 15000,
+          max: max + 2,
           maxTicksLimit: 5
         },
         gridLines: {

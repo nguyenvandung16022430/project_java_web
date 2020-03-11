@@ -77,4 +77,7 @@ public class ProductService {
     public Page<Product>  getProductByAuthorId(Pageable page,Integer authorId){
         return  productRepository.getProductByAuthorId(page,authorId);
     }
+    public List<Product> getListHotProduct(){
+        return productRepository.getListHotProduct();
+    }
 }

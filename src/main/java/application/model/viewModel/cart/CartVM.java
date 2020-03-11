@@ -11,7 +11,15 @@ public class CartVM {
     private List<CartProductVM> cartProductVMS;
     private CartHeaderVM cartHeaderVM;
     private String totalPrice;
+    private int cartId;
 
+    public int getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(int cartId) {
+        this.cartId = cartId;
+    }
 
     public int getProductAmount() {
         return productAmount;

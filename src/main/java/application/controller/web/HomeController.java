@@ -64,6 +64,19 @@ public class HomeController extends BaseController {
             productVMList.add(productVM);
 
         }
+        List<Product> hotProductList = productService.getListHotProduct();
+        List<ProductVM> hotProductVMlist = new ArrayList<>();
+        for(Product product : hotProductList){
+            ProductVM productVM = new ProductVM();
+            productVM.setId(product.getId());
+            productVM.setName(product.getName());
+            productVM.setMainImage(product.getMainImage());
+            productVM.setShortDesc(product.getShortDesc());
+            productVM.setCreatedDate(product.getPublishedDate());
+            productVM.setPrice(product.getPrice());
+            hotProductVMlist.add(productVM);
+        }
+        vm.setProductHotVMList(hotProductVMlist);
         vm.setLayoutHeaderVM(this.getLayoutHeaderVM());
         vm.setProductVMList(productVMList);
         model.addAttribute("vm",vm);

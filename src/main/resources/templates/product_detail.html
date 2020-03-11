@@ -31,8 +31,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="agileinfo_single"  >
             <h5 th:text="${vm.getProductVM().getName()}">charminar pulao basmati rice 5 kg</h5>
             <div class="col-md-4 agileinfo_single_left">
-                <img id="example" th:src="${vm.getProductVM().getMainImage()}" alt=" " class="img-responsive" />
+                <img id="test1" th:src="${vm.getProductVM().getMainImage()}" alt=" " class="img-responsive" />
+                <div class="col-md-4 col-sm-12 col-xs-12 " th:each="productImage: ${vm.getProductVM().getProductImageVMS()}"style="margin-top: 15px;">
+                    <div class=" card-img">
+                        <img class="img-responsive list-product-detail" th:src="${productImage.getLink()}" th:attr="data-image = ${productImage.getLink()}" >
+                    </div>
             </div>
+            </div>
+
             <div class="col-md-8 agileinfo_single_right">
                 <div class="rating1">
 						<span class="starRating">

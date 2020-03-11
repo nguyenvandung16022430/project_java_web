@@ -59,6 +59,7 @@ public class CartController extends BaseController {
                 Cart cartEntity = cartService.findFirstCartByGuid(guid);
                 if (cartEntity != null) {
                     productAmount = cartEntity.getListCartProduct().size();
+                    vm.setCartId(cartEntity.getId());
                     if (productAmount == 0) {
                         vm.setCartHeaderVM(this.getCartHeaderVM());
                         model.addAttribute("vm",vm);

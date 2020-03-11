@@ -35,7 +35,7 @@ $(document).ready(function() {
     }
 
 
-    $(".list-product-image").on("click",function () {
+    $(".list-product-detail").on("click",function () {
         $("#test1").attr("src",$(this).data("image"));
     });
 

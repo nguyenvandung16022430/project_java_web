@@ -6,6 +6,7 @@ import application.data.service.CartProductService;
 import application.data.service.CartService;
 import application.data.service.OrderService;
 import application.data.service.UserService;
+import application.model.viewModel.cart.CartProductVM;
 import application.model.viewModel.common.ProductVM;
 import application.model.viewModel.order.*;
 import org.apache.logging.log4j.LogManager;
@@ -44,8 +45,9 @@ public class OrderController extends BaseController {
     @Autowired
     private CartService cartService;
 
-    @GetMapping("/checkout")
+    @GetMapping("/checkout/{cartId}")
     public String checkout(Model model,
+                           @PathVariable int cartId,
                            @Valid @ModelAttribute("productname") ProductVM productName,
                            final Principal principal){
         CheckOutVM vm = new CheckOutVM();
@@ -61,7 +63,21 @@ public class OrderController extends BaseController {
                 order.setEmail(userEntity.getEmail());
             }
         }
-
+        List<CartProductVM> cartProductVMS = new ArrayList<>();
+        Cart cartEntity = cartService.findOne(cartId);
+        double totalPrice = 0;
+        DecimalFormat df = new DecimalFormat("####0.00");
+        for (CartProduct cartProduct : cartEntity.getListCartProduct()) {
+            CartProductVM cartProductVM = new CartProductVM();
+            cartProductVM.setProductName(cartProduct.getProduct().getName());
+            cartProductVM.setAmount(cartProduct.getAmount());
+            double prince = cartProduct.getAmount()*cartProduct.getProduct().getPrice();
+            cartProductVM.setPrice(df.format(prince));
+            totalPrice += prince;
+            cartProductVMS.add(cartProductVM);
+        }
+        vm.setTotalPrice(totalPrice);
+        vm.setCartProductVMS(cartProductVMS);
         vm.setCartHeaderVM(this.getCartHeaderVM());
         model.addAttribute("order",order);
         model.addAttribute("vm",vm);
@@ -124,8 +140,6 @@ public class OrderController extends BaseController {
         }
     return "redirect:/order/history";
     }
-
-
     @GetMapping("/history")
     public String orderHistory(Model model,
                                @Valid @ModelAttribute("productname") ProductVM productName,

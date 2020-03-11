@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>SB Admin - Charts</title>
+
+  <link th:href="@{/vendor/fontawesome-free/css/all.css}" rel="stylesheet" type="text/css">
+  <link th:href="@{/vendor/datatables/dataTables.bootstrap4.css}" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/vendor/mdi/css/materialdesignicons.min.css}">
+  <!-- Page level plugin CSS-->
+
+
+  <!-- Custom styles for this template-->
+  <link th:href="@{/css/sb-admin.css}" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/vendor/css/vendor.bundle.base.css}">
+  <link rel="shortcut icon" th:href="@{/images/favicon.png}" />
+
+</head>
+
+<body id="page-top">
+
+<div th:replace="fragments/HeaderAdmin :: header_admin_info(vm=${vm.getLayoutHeaderAdminVM()})"></div>
+
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <div th:replace="fragments/SidebarAdmin :: sidebar_info"></div>
+
+    <div id="content-wrapper">
+
+      <div class="container-fluid">
+
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active">Charts</li>
+        </ol>
+
+        <!-- Area Chart Example-->
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fas fa-chart-area"></i>
+            Area Chart Example</div>
+          <div class="card-body">
+            <canvas id="myAreaChart" width="100%" height="30"></canvas>
+          </div>
+          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="card mb-3">
+              <div class="card-header">
+                <i class="fas fa-chart-bar"></i>
+                Bar Chart Example</div>
+              <div class="card-body">
+                <canvas id="myBarChart" width="100%" height="50"></canvas>
+              </div>
+              <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="card mb-3">
+              <div class="card-header">
+                <i class="fas fa-chart-pie"></i>
+                Pie Chart Example</div>
+              <div class="card-body">
+                <canvas id="myPieChart" width="100%" height="100"></canvas>
+              </div>
+              <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+            </div>
+          </div>
+        </div>
+
+        <p class="small text-center text-muted my-5">
+          <em>More chart examples coming soon...</em>
+        </p>
+
+      </div>
+      <!-- /.container-fluid -->
+
+      <!-- Sticky Footer -->
+      <footer class="sticky-footer">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright © Your Website 2019</span>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+    <!-- /.content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+<script th:inline="javascript">
+  /*<![CDATA[*/
+
+  var vm = [[${vm}]];
+
+  /*]]>*/
+</script>
+  <!-- Bootstrap core JavaScript-->
+  <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+  <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+  <!-- Page level plugin JavaScript-->
+  <script th:src="@{/vendor/chart.js/Chart.min.js}"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script th:src="@{/js/sb-admin.min.js}"></script>
+  <script th:src="@{/vendor/js/vendor.bundle.base.js}"></script>
+  <script th:src="@{/vendor/js/vendor.bundle.addons.js}"></script>
+  <script th:src="@{/js/off-canvas.js}"></script>
+  <script th:src="@{/js/misc.js}"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  <!-- Demo scripts for this page-->
+  <script th:src="@{/js/demo/chart-area-demo.js}"></script>
+  <script th:src="@{/js/demo/chart-bar-demo.js}"></script>
+
+
+</body>
+
+</html>

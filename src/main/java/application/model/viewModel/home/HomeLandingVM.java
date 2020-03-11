@@ -11,7 +11,15 @@ public class HomeLandingVM {
 
     private LayoutHeaderVM layoutHeaderVM;
     private List<ProductVM> productVMList;
+    private List<ProductVM> productHotVMList;
 
+    public List<ProductVM> getProductHotVMList() {
+        return productHotVMList;
+    }
+
+    public void setProductHotVMList(List<ProductVM> productHotVMList) {
+        this.productHotVMList = productHotVMList;
+    }
 
     public LayoutHeaderVM getLayoutHeaderVM() {
         return layoutHeaderVM;

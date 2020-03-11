@@ -26,6 +26,9 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             " where dc.category_id = :categoryId Limit 8 ",nativeQuery = true)
     List<Product> getListProductbyCategoryIdContaining(@Param(value = "categoryId") Integer categoryId);
 
+    @Query(value = "SELECT * from dbo_product p order by p.hot desc limit 8",nativeQuery = true)
+    List<Product> getListHotProduct();
+
     @Query("SELECT p FROM dbo_product p " +
             "where (:productName IS NULL OR UPPER(p.name) LIKE CONCAT('%',UPPER(:productName),'%'))")
     Page<Product> getListProductbyProductNameContaining(Pageable page,@Param("productName") String productName);

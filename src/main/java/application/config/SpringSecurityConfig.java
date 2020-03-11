@@ -41,7 +41,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login")
-                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("/").usernameParameter("username1").passwordParameter("password1")
                 .permitAll().
                 and().rememberMe().rememberMeParameter("remember-me").key("uniqueAndSecret").tokenValiditySeconds(1296000).userDetailsService(userDetailsService)
                 .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/")

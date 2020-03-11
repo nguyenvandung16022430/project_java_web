@@ -61,6 +61,10 @@
                                                                                        +(#httpServletRequest.getParameter('size')==null?'':('&size='+#httpServletRequest.getParameter('size')))
                                                                                        +('&sort=' +4)
                                                                                        }">Đơn đã nhận</a>
+                        <a class="dropdown-item" th:href="${'?' +(#httpServletRequest.getParameter('page')==null?'':('&page='+#httpServletRequest.getParameter('page')))
+                                                                                       +(#httpServletRequest.getParameter('size')==null?'':('&size='+#httpServletRequest.getParameter('size')))
+                                                                                       +('&sort=' +5)
+                                                                                       }">Đơn đã hủy</a>
 
                     </div>
                 </div>
@@ -86,7 +90,7 @@
                                 <th colspan="3">
                                     Email
                                 </th>
-                                <th colspan="3">
+                                <th colspan="2">
                                     PhoneNumber
                                 </th>
                                 <th colspan="3">
@@ -95,29 +99,33 @@
                                 <th colspan="3">
                                     Status
                                 </th>
-                                <th colspan="2">
+                                <th colspan="4">
 
                                 </th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="order : ${vm.getOrderVMList()}">
+                            <tr th:each="order : ${vm.getOrderVMList()}" class="dropdown">
                                 <td colspan="1" th:text="${order.getId()}"></td>
                                 <td colspan="3" th:text="${order.getUserName()}"></td>
                                 <td colspan="3" th:text="${order.getCustomerName()}"></td>
                                 <td colspan="3" th:text="${order.getAddress()}"></td>
                                 <td colspan="3" th:text="${order.getEmail()}"></td>
-                                <td colspan="3" th:text="${order.getPhoneNumber()}"></td>
+                                <td colspan="2" th:text="${order.getPhoneNumber()}"></td>
                                 <td colspan="3" th:text="${order.getCreatedDate()}"></td>
                                 <td colspan="3"><a th:if="${order.getStatusId()==1}" text="Chờ xác nhận">Chờ xác nhận</a>
                                     <a th:if="${order.getStatusId()==2}" text="Đã xác nhận đơn hàng">Đã xác nhận đơn hàng</a>
                                     <a th:if="${order.getStatusId()==3}" text="Hàng đang được giao">Hàng đang được giao</a>
                                     <a th:if="${order.getStatusId()==4}" text="Đã giao hàng">Đã giao hàng</a>
                                     <a th:if="${order.getStatusId()==5}" text="Đơn hàng bị hủy">Đơn hàng bị hủy</a></td>
-                                <td colspan="2">
-                                    <i class="mdi mdi-checkbox-marked tooltip-test confirm-order" th:attr="data-order = ${order.getId()}" title="Detail order"  style="cursor: pointer" data-toggle="modal" title="confirm-order" data-target="#exampleModalLong"></i>
-                                    <i class="mdi mdi-cancel tooltip-test cancel-order" th:attr="data-order = ${order.getId()}" title="Detail order"  style="cursor: pointer"data-toggle="modal" title="cancel-order" data-target="#exampleModalCancel"></i>
-                                    <i class="mdi mdi-delete-circle tooltip-test delete-order" th:attr="data-order = ${order.getId()}" title="Detail order"  style="cursor: pointer"data-toggle="modal" title="delete-order" data-target="#exampleModalDelete" ></i>
+                                <td colspan="4" class=" dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true">
+                                    <ul class="dropdown-menu"aria-labelledby="messagesDropdown">
+                                    <li class="dropdown-item status-order confirm " th:attr="data-order = ${order.getId()}" title="Detail order"  style="cursor: pointer" data-toggle="modal" title="confirm-order" data-target="#exampleModalLong" type="number" th:value="${2}">Xác nhận</li>
+                                    <li class="dropdown-item status-order cancel " th:attr="data-order = ${order.getId()}" title="Detail order"  style="cursor: pointer"data-toggle="modal" title="cancel-order" data-target="#exampleModalCancel" type="number" th:value="${5}">Hủy đơn hàng</li>
+                                    <li class="dropdown-item status-order unconfirm" th:attr="data-order = ${order.getId()}" title="Detail order"  style="cursor: pointer"data-toggle="modal" title="delete-order" data-target="#exampleModalUnconfirm"type="number" th:value="${1}" >Đang Chờ xác nhận</li>
+                                    <li class="dropdown-item status-order sent" th:attr="data-order = ${order.getId()}" title="Detail order"  style="cursor: pointer"data-toggle="modal" title="sent-order" data-target="#exampleModalSent" type="number" th:value="${3}" >Đã gửi hàng</li>
+                                    <li class="dropdown-item status-order complete" th:attr="data-order = ${order.getId()}" title="Detail order"  style="cursor: pointer"data-toggle="modal" title="complete" data-target="#exampleModalComplete"  type="number" th:value="${4}">Đơn hàng đã hoàn thành</li>
+                                    </ul>
                                 </td>
                             </tr>
                             </tbody>
@@ -149,66 +157,7 @@
 
 
             <!-- Modal -->
-            <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Order status</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                           <h2>Bạn có xác nhận muốn chuyển trạng thái của order</h2>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary btn-confirm-order">xác nhận</button>
-                        </div>
-                    </div>
-                </div>
 
-            </div>
-            <div class="modal fade" id="exampleModalCancel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongCancel">Order status</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <h2>Bạn có xác nhận muốn hủy order</h2>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary btn-cancel-order">xác nhận</button>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="modal fade" id="exampleModalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongDelete">Order status</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <h2>Bạn có xác nhận muốn chuyển trạng thái của order</h2>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary btn-delete-order">xác nhận</button>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
 
             <!-- Sticky Footer -->
             <footer class="sticky-footer">
